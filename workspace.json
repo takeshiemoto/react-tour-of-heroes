@@ -23,7 +23,9 @@
           "executor": "@nrwl/next:server",
           "options": {
             "buildTarget": "tour-of-heroes:build",
-            "dev": true
+            "dev": true,
+            "proxyConfig": "apps/tour-of-heroes/proxy.conf.json"
+
           },
           "configurations": {
             "production": {
