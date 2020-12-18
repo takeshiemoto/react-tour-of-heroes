@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledPage = styled.div`
-  .page {
-  }
-`;
+import Link from 'next/link';
 
 export function Index() {
-  return <div>Hello world</div>;
+  return <h1>Tour of Heroes</h1>;
 }
 
 export default Index;
