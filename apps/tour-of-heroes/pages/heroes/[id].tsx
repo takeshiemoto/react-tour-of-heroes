@@ -3,8 +3,6 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import fetch from 'node-fetch';
 import { Hero, PageProps } from '../../types';
 
-import { HeroSelect } from '../../components/HeroSelect';
-
 type HeroPageProps = {
   hero: Hero;
 };
@@ -13,7 +11,6 @@ const HeroPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { hero } = data;
   return (
     <>
-      <HeroSelect />
       <dl>
         <dt>ID</dt>
         <dd>{hero.id}</dd>
@@ -48,6 +45,7 @@ export const getStaticProps: GetStaticProps<
   const hero = await fetch(`http://localhost:8080/api/v1/heroes/${params.id}`)
     .then((res) => res.json())
     .then((res) => res as Hero);
+
   return {
     props: {
       data: {
