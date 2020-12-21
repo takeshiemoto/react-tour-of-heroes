@@ -28,7 +28,8 @@ const HeroPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 export default HeroPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await fetch('http://localhost:8080/api/v1/heroes')
+  // TODO URLはENVから取得する
+  const paths = await fetch('http://localhost:5000/api/v1/heroes')
     .then((res) => res.json())
     .then((res) => res as Hero[])
     .then((heroes) => heroes.map((hero) => `/heroes/${hero.id}`));
@@ -42,7 +43,7 @@ export const getStaticProps: GetStaticProps<
   PageProps<HeroPageProps>,
   { id: string }
 > = async ({ params }) => {
-  const hero = await fetch(`http://localhost:8080/api/v1/heroes/${params.id}`)
+  const hero = await fetch(`http://localhost:5000/api/v1/heroes/${params.id}`)
     .then((res) => res.json())
     .then((res) => res as Hero);
 

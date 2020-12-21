@@ -30,7 +30,7 @@ export default Heroes;
 export const getStaticProps: GetStaticProps<PageProps<
   HeroesPageProps
 >> = async () => {
-  const heroes = await fetch('http://localhost:8080/api/v1/heroes')
+  const heroes = await fetch('http://localhost:5000/api/v1/heroes')
     .then((res) => res.json())
     .then((res) => res as Hero[]);
   return {
