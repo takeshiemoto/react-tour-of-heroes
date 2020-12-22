@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { APP_NAME } from '../environments';
+
 export function Index() {
-  console.log(process.env.API_URL);
-  return <h1>Tour of Heroes</h1>;
+  return <h1>{APP_NAME}</h1>;
 }
 
 export default Index;
