@@ -14,5 +14,10 @@ export const Navigation = () => (
         <a>Heroes</a>
       </Link>
     </li>
+    <li>
+      <Link href={'/isr'}>
+        <a>ISR</a>
+      </Link>
+    </li>
   </ul>
 );

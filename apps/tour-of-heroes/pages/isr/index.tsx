@@ -1,36 +1,31 @@
 import React from 'react';
-import Link from 'next/link';
-import fetch from 'node-fetch';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Hero, PageProps } from '../../types';
+import fetch from 'node-fetch';
 import { API_URL } from '../../environments';
 
-type HeroesPageProps = {
+type ISRPageProps = {
   heroes: Hero[];
 };
 
-const Heroes = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ISRPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { heroes } = data;
   return (
     <>
-      <h1>Static Generation</h1>
+      <h1>Incremental Static Regeneration Page</h1>
       <ul>
         {heroes.map((hero) => (
-          <li key={hero.id}>
-            <Link href={`heroes/${hero.id}`}>
-              <a>{hero.name}</a>
-            </Link>
-          </li>
+          <li key={hero.id}>{hero.name}</li>
         ))}
       </ul>
     </>
   );
 };
 
-export default Heroes;
+export default ISRPage;
 
 export const getStaticProps: GetStaticProps<PageProps<
-  HeroesPageProps
+  ISRPageProps
 >> = async () => {
   const heroes = await fetch(`${API_URL}/api/v1/heroes`)
     .then((res) => res.json())
@@ -41,10 +36,5 @@ export const getStaticProps: GetStaticProps<PageProps<
         heroes,
       },
     },
-    /**
-     * Next.jsはページの再生成を試みます
-     * ページへのリクエストが来た時、最大で1秒に1度
-     */
-    revalidate: 1,
   };
 };
