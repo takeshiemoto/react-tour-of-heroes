@@ -41,10 +41,5 @@ export const getStaticProps: GetStaticProps<PageProps<
         heroes,
       },
     },
-    /**
-     * Next.jsはページの再生成を試みます
-     * ページへのリクエストが来た時、最大で1秒に1度
-     */
-    revalidate: 1,
   };
 };
