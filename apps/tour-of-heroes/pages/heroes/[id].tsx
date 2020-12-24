@@ -29,7 +29,7 @@ const HeroPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 export default HeroPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO URLはENVから取得する
+  // ビルド時にはpaths指定されたページのみ生成する
   const paths = await fetch(`${API_URL}/api/v1/heroes`)
     .then((res) => res.json())
     .then((res) => res as Hero[])

@@ -14,11 +14,13 @@ const ISRHeroPage = (
   params: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
   const { isFallback } = useRouter();
-  if (!isFallback && !params.hero) {
+  if (!isFallback && !params?.hero) {
     return <Error statusCode={404} title={'Error'} />;
   }
 
-  if (!params.hero) {
+  // ページがまだ生成されていない時はこれが表示される
+  // 最初はgetStaticPropsの実行が終了するまで
+  if (isFallback) {
     return <div>Loading...</div>;
   }
 
@@ -43,22 +45,21 @@ export const getStaticProps: GetStaticProps<
   { id: string }
 > = async ({ params }) => {
   const { id } = params;
+  const response = await fetch(`${API_URL}/api/v1/heroes/${id}`);
+  const hero = await response
+    .json()
+    .then((json) => json as Hero)
+    .catch((err) => {
+      console.error(err);
+      return null;
+    });
 
-  try {
-    const response = await fetch(`${API_URL}/api/v1/heroes/${id}`);
-    const hero = await response.json().then((json) => json as Hero);
-
-    return {
-      props: {
-        hero,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        hero: null,
-      },
-    };
-  }
+  return {
+    props: {
+      hero,
+    },
+    // リクエストが来たら
+    // 最大で1秒間に1回再生成
+    revalidate: 1,
+  };
 };
