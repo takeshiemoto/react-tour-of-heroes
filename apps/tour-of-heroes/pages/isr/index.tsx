@@ -3,6 +3,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Hero, PageProps } from '../../types';
 import fetch from 'node-fetch';
 import { API_URL } from '../../environments';
+import Link from 'next/link';
 
 type ISRPageProps = {
   heroes: Hero[];
@@ -15,7 +16,11 @@ const ISRPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <h1>Incremental Static Regeneration Page</h1>
       <ul>
         {heroes.map((hero) => (
-          <li key={hero.id}>{hero.name}</li>
+          <li key={hero.id}>
+            <Link href={`isr/${hero.id}`}>
+              <a>{hero.name}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </>
