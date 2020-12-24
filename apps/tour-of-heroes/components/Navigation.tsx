@@ -11,7 +11,12 @@ export const Navigation = () => (
     </li>
     <li>
       <Link href={'/heroes'}>
-        <a>Heroes</a>
+        <a>SSG</a>
+      </Link>
+    </li>
+    <li>
+      <Link href={'/ssr'}>
+        <a>SSR</a>
       </Link>
     </li>
     <li>
