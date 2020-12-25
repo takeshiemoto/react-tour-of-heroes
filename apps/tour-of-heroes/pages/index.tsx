@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { APP_NAME } from '../environments';
+import { API_URL, APP_NAME } from '../environments';
 import useSWR from 'swr';
 import { Hero } from '../types';
 
 export function Index() {
   const fetcher = (url) => fetch(url).then((res) => res.json());
 
-  const { data: heroes, error } = useSWR<Hero[]>(`/api/v1/heroes`, fetcher);
+  const { data: heroes, error } = useSWR<Hero[]>(
+    `${API_URL}/api/v1/heroes`,
+    fetcher
+  );
 
   return (
     <>
