@@ -1,15 +1,14 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import fetch from 'node-fetch';
-import { Hero, PageProps } from '../../types';
+import { Hero } from '../../types';
 import { API_URL } from '../../environments';
 
 type HeroPageProps = {
   hero: Hero;
 };
 
-const HeroPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { hero } = data;
+const HeroPage = ({ hero }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <dl>
@@ -40,19 +39,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<
-  PageProps<HeroPageProps>,
-  { id: string }
-> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<HeroPageProps> = async ({
+  params,
+}) => {
   const hero = await fetch(`${API_URL}/api/v1/heroes/${params.id}`)
     .then((res) => res.json())
     .then((res) => res as Hero);
 
   return {
-    props: {
-      data: {
-        hero,
-      },
-    },
+    props: { hero },
   };
 };

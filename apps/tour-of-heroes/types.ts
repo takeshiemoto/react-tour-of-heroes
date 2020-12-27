@@ -1,7 +1,3 @@
-export type PageProps<T> = {
-  data: T;
-};
-
 export interface Hero {
   id: number;
   name: string;

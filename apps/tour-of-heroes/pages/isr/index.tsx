@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Hero, PageProps } from '../../types';
+import { Hero } from '../../types';
 import fetch from 'node-fetch';
 import { API_URL } from '../../environments';
 import Link from 'next/link';
@@ -9,8 +9,9 @@ type ISRPageProps = {
   heroes: Hero[];
 };
 
-const ISRPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { heroes } = data;
+const ISRPage = ({
+  heroes,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <h1>Incremental Static Regeneration Page</h1>
@@ -29,18 +30,12 @@ const ISRPage = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
 export default ISRPage;
 
-export const getStaticProps: GetStaticProps<PageProps<
-  ISRPageProps
->> = async () => {
+export const getStaticProps: GetStaticProps<ISRPageProps> = async () => {
   const heroes = await fetch(`${API_URL}/api/v1/heroes`)
     .then((res) => res.json())
     .then((res) => res as Hero[]);
   return {
-    props: {
-      data: {
-        heroes,
-      },
-    },
+    props: { heroes },
     /**
      * Next.jsはページの再生成を試みます
      * ページへのリクエストが来た時、最大で1秒に1度

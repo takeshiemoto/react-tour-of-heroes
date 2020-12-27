@@ -2,15 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import fetch from 'node-fetch';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Hero, PageProps } from '../../types';
+import { Hero } from '../../types';
 import { API_URL } from '../../environments';
 
 type HeroesPageProps = {
   heroes: Hero[];
 };
 
-const Heroes = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { heroes } = data;
+const Heroes = ({ heroes }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <h1>Static Generation</h1>
@@ -29,17 +28,11 @@ const Heroes = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
 export default Heroes;
 
-export const getStaticProps: GetStaticProps<PageProps<
-  HeroesPageProps
->> = async () => {
+export const getStaticProps: GetStaticProps<HeroesPageProps> = async () => {
   const heroes = await fetch(`${API_URL}/api/v1/heroes`)
     .then((res) => res.json())
     .then((res) => res as Hero[]);
   return {
-    props: {
-      data: {
-        heroes,
-      },
-    },
+    props: { heroes },
   };
 };
