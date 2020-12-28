@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { API_URL } from '../environments';
 import useSWR from 'swr';
-import { Hero } from '@tour-of-heroes-workspace/type';
+import { Hero } from '@toh/type';
+import { API_URL } from '@toh/environment';
 
 export function Index() {
   const fetcher = (url) => fetch(url).then((res) => res.json());

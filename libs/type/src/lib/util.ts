@@ -1,1 +1,1 @@
-export type ApiResponse<T> = { data: T; error: string };
+export type ApiResponseType<T> = { data: T; error: string };

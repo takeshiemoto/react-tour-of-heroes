@@ -23,8 +23,7 @@
           "executor": "@nrwl/next:server",
           "options": {
             "buildTarget": "tour-of-heroes:build",
-            "dev": true,
-            "proxyConfig": "apps/tour-of-heroes/proxy.conf.json"
+            "dev": true
           },
           "configurations": {
             "production": {
@@ -107,6 +106,56 @@
           ],
           "options": {
             "jestConfig": "libs/type/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "repository": {
+      "root": "libs/repository",
+      "sourceRoot": "libs/repository/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/repository/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/repository"
+          ],
+          "options": {
+            "jestConfig": "libs/repository/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "environment": {
+      "root": "libs/environment",
+      "sourceRoot": "libs/environment/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/environment/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/environment"
+          ],
+          "options": {
+            "jestConfig": "libs/environment/jest.config.js",
             "passWithNoTests": true
           }
         }

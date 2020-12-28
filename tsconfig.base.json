@@ -15,8 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@tour-of-heroes-workspace/type": ["libs/type/src/index.ts"]
-    }
+      "@toh/type": ["libs/type/src/index.ts"],
+      "@toh/repository": ["libs/repository/src/index.ts"],
+      "@toh/environment": ["libs/environment/src/index.ts"]
+    },
+    "types": ["node"]
   },
   "exclude": ["node_modules", "tmp"]
 }
