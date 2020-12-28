@@ -1,26 +1,33 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import fetch from 'node-fetch';
 import { Hero } from '@toh/type';
-import { API_URL } from '@toh/environment';
+import { getHeroById, getHeroIds } from '@toh/repository';
 
 type HeroPageProps = {
-  hero: Hero;
+  hero?: Hero;
+  error?: string;
 };
 
-const HeroPage = ({ hero }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const HeroPage = ({
+  hero,
+  error,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
-      <dl>
-        <dt>ID</dt>
-        <dd>{hero.id}</dd>
-        <dt>Name</dt>
-        <dd>{hero.name}</dd>
-        <dt>CreatedAt</dt>
-        <dd>{hero.created_at}</dd>
-        <dt>UpdateAt</dt>
-        <dd>{hero.update_at}</dd>
-      </dl>
+      {hero ? (
+        <dl>
+          <dt>ID</dt>
+          <dd>{hero.id}</dd>
+          <dt>Name</dt>
+          <dd>{hero.name}</dd>
+          <dt>CreatedAt</dt>
+          <dd>{hero.created_at}</dd>
+          <dt>UpdateAt</dt>
+          <dd>{hero.update_at}</dd>
+        </dl>
+      ) : (
+        JSON.stringify(error)
+      )}
     </>
   );
 };
@@ -29,10 +36,9 @@ export default HeroPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ビルド時にはpaths指定されたページのみ生成する
-  const paths = await fetch(`${API_URL}/api/v1/heroes`)
-    .then((res) => res.json())
-    .then((res) => res as Hero[])
-    .then((heroes) => heroes.map((hero) => `/heroes/${hero.id}`));
+  const { data: ids } = await getHeroIds();
+  const paths = ids.map((id) => `/heroes/${id}`);
+
   return {
     paths,
     fallback: false,
@@ -42,11 +48,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<HeroPageProps> = async ({
   params,
 }) => {
-  const hero = await fetch(`${API_URL}/api/v1/heroes/${params.id}`)
-    .then((res) => res.json())
-    .then((res) => res as Hero);
+  const { id } = params;
+  if (typeof id !== 'string') return;
+  const { data, error } = await getHeroById(id);
 
   return {
-    props: { hero },
+    props: !error ? { hero: data } : { error },
   };
 };

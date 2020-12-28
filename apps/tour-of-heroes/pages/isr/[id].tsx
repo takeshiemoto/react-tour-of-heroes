@@ -1,13 +1,13 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import fetch from 'node-fetch';
-import { API_URL } from '../../environments';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
-import { Hero } from '@tour-of-heroes-workspace/type';
+import { Hero } from '@toh/type';
+import { getHeroById } from '@toh/repository';
 
 type ISRHeroPageProps = {
-  hero: Hero;
+  hero?: Hero;
+  error?: string;
 };
 
 const ISRHeroPage = (
@@ -45,21 +45,11 @@ export const getStaticProps: GetStaticProps<
   { id: string }
 > = async ({ params }) => {
   const { id } = params;
-  const response = await fetch(`${API_URL}/api/v1/heroes/${id}`);
-  const hero = await response
-    .json()
-    .then((json) => json as Hero)
-    .catch((err) => {
-      console.error(err);
-      return null;
-    });
+  if (typeof id !== 'string') return;
+  const { data, error } = await getHeroById(id);
 
   return {
-    props: {
-      hero,
-    },
-    // リクエストが来たら
-    // 最大で1秒間に1回再生成
-    revalidate: 1,
+    props: !error ? { hero: data } : { error },
+    revalidate: 120,
   };
 };
