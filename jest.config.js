@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/repository',
     '<rootDir>/libs/environment',
     '<rootDir>/libs/infra',
+    '<rootDir>/apps/tour-of-heroes-admin',
   ],
 };

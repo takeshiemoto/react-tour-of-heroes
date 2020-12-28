@@ -41,6 +41,13 @@
     },
     "infra": {
       "tags": []
+    },
+    "tour-of-heroes-admin": {
+      "tags": []
+    },
+    "tour-of-heroes-admin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tour-of-heroes-admin"]
     }
   }
 }
