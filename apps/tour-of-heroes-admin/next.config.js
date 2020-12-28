@@ -1,3 +1,5 @@
 const withNx = require('@nrwl/next/plugins/with-nx');
 
-module.exports = withNx({});
+module.exports = withNx({
+  target: 'serverless',
+});
