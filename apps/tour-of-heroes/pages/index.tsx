@@ -3,12 +3,12 @@ import React from 'react';
 import useSWR from 'swr';
 import { Hero } from '@toh/type';
 import { API_URL } from '@toh/environment';
-import { API_PATHS } from '../../../libs/repository/src/lib/paths';
+import { API_PATHS } from '@toh/repository';
 
 export function Index() {
   const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data: heroes, error } = useSWR<Hero[]>(
-    `${API_URL}${API_PATHS.Heroes}`,
+    `${API_URL}${API_PATHS.HEROES}`,
     fetcher
   );
 

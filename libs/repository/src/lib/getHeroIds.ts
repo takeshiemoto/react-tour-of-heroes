@@ -4,7 +4,7 @@ import { API_PATHS } from './paths';
 
 export const getHeroIds = async (): Promise<ApiResponseType<number[]>> => {
   try {
-    const heroIds = await Fetch(`${API_PATHS.Heroes}`)
+    const heroIds = await Fetch(`${API_PATHS.HEROES}`)
       .then((res) => res.json())
       .then((res) => res as Hero[])
       .then((heroes) => heroes.map((hero) => hero.id));
