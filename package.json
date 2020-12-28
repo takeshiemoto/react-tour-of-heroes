@@ -5,6 +5,7 @@
   "scripts": {
     "nx": "nx",
     "start": "nx serve",
+    "start:admin": "nx serve tour-of-heroes-admin --port 3000",
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
