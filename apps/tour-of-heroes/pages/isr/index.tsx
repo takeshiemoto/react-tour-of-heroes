@@ -36,10 +36,7 @@ export const getStaticProps: GetStaticProps<ISRPageProps> = async () => {
     .then((res) => res as Hero[]);
   return {
     props: { heroes },
-    /**
-     * Next.jsはページの再生成を試みます
-     * ページへのリクエストが来た時、最大で1秒に1度
-     */
-    revalidate: 1,
+    // 10秒に1度最新のデータを取得する
+    revalidate: 10,
   };
 };

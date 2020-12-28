@@ -6,7 +6,6 @@ import { Hero } from '../types';
 
 export function Index() {
   const fetcher = (url) => fetch(url).then((res) => res.json());
-
   const { data: heroes, error } = useSWR<Hero[]>(
     `${API_URL}/api/v1/heroes`,
     fetcher
