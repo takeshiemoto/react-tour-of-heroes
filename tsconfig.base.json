@@ -18,7 +18,8 @@
       "@toh/type": ["libs/type/src/index.ts"],
       "@toh/repository": ["libs/repository/src/index.ts"],
       "@toh/environment": ["libs/environment/src/index.ts"],
-      "@toh/infra": ["libs/infra/src/index.ts"]
+      "@toh/infra": ["libs/infra/src/index.ts"],
+      "@toh/const": ["libs/const/src/index.ts"]
     },
     "types": ["node"]
   },
