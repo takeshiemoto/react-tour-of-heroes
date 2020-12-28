@@ -38,6 +38,9 @@
     },
     "environment": {
       "tags": []
+    },
+    "infra": {
+      "tags": []
     }
   }
 }

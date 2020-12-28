@@ -1,12 +1,11 @@
-import fetch from 'node-fetch';
 import { ApiResponseType, Hero } from '@toh/type';
-import { API_URL } from '@toh/environment';
+import { Fetch } from '@toh/infra';
 
 export const getHeroById = async (
   id: string
 ): Promise<ApiResponseType<Hero>> => {
   try {
-    const hero = await fetch(`${API_URL}/api/v1/heroes/${id}`)
+    const hero = await Fetch(`/api/v1/heroes/${id}`)
       .then((res) => res.json())
       .then((res) => res as Hero);
     return {
