@@ -1,8 +1,8 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import fetch from 'node-fetch';
-import { Hero } from '../../types';
 import { API_URL } from '../../environments';
+import { Hero } from '@tour-of-heroes-workspace/type';
 
 type HeroPageProps = {
   hero: Hero;

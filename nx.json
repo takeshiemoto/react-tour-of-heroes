@@ -29,6 +29,9 @@
     "tour-of-heroes-e2e": {
       "tags": [],
       "implicitDependencies": ["tour-of-heroes"]
+    },
+    "type": {
+      "tags": []
     }
   }
 }

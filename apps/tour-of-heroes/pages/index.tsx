@@ -2,7 +2,7 @@ import React from 'react';
 
 import { API_URL } from '../environments';
 import useSWR from 'swr';
-import { Hero } from '../types';
+import { Hero } from '@tour-of-heroes-workspace/type';
 
 export function Index() {
   const fetcher = (url) => fetch(url).then((res) => res.json());

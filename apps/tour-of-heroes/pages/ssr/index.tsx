@@ -1,8 +1,8 @@
 import React from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { Hero } from '../../types';
 import fetch from 'node-fetch';
 import { API_URL } from '../../environments';
+import { Hero } from '@tour-of-heroes-workspace/type';
 
 type SSRHeroesPageProps = {
   heroes: Hero[];

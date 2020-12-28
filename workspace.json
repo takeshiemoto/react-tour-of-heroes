@@ -86,6 +86,31 @@
           }
         }
       }
+    },
+    "type": {
+      "root": "libs/type",
+      "sourceRoot": "libs/type/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/type/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/type"
+          ],
+          "options": {
+            "jestConfig": "libs/type/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

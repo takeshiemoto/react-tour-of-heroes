@@ -2,9 +2,9 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import fetch from 'node-fetch';
 import { API_URL } from '../../environments';
-import { Hero } from '../../types';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
+import { Hero } from '@tour-of-heroes-workspace/type';
 
 type ISRHeroPageProps = {
   hero: Hero;
@@ -21,7 +21,7 @@ const ISRHeroPage = (
   // ページがまだ生成されていない時はこれが表示される
   // 最初はgetStaticPropsの実行が終了するまで
   if (isFallback) {
-    return <div>Loading...</div>;
+    return <div>Generating...</div>;
   }
 
   return (
