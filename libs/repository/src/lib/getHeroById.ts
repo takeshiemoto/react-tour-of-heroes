@@ -6,7 +6,7 @@ export const getHeroById = async (
   id: string
 ): Promise<ApiResponseType<Hero>> => {
   try {
-    const hero = await Fetch(`${API_PATHS.HEROES}${id}`)
+    const hero = await Fetch(`${API_PATHS.HEROES}/${id}`)
       .then((res) => res.json())
       .then((res) => res as Hero);
     return {
