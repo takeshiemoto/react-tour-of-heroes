@@ -1,12 +1,13 @@
 import React from 'react';
 import { ADMIN_ROUTE } from '@toh/const';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { API_URL } from '@toh/environment';
 import { API_PATHS } from '@toh/repository';
 import { Hero } from '@toh/type';
 import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers';
+import { addHero } from '../../../../libs/repository/src/lib/addHero';
 
 type FormType = {
   name: string;
@@ -20,12 +21,15 @@ const AddPage = () => {
     name: string().required(),
   });
 
-  const { register, handleSubmit } = useForm<FormType>({
+  const { register, handleSubmit, reset } = useForm<FormType>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormType) => {
-    console.log(data);
+  const onSubmit = async (data: FormType) => {
+    await addHero(data.name);
+    // tell all SWRs with this key to revalidate
+    await mutate(key);
+    reset();
   };
 
   const onError = (error) => {
