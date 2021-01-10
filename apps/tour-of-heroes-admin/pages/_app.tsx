@@ -1,4 +1,5 @@
 import React from 'react';
+import { SWRConfig } from 'swr';
 import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -12,20 +13,27 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Tour Of Heroes ADMIN</title>
       </Head>
-      <div className="app">
-        <ul>
-          {routes.map((route) => (
-            <li key={route.name}>
-              <Link href={route.path}>
-                <a>{route.name}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <main>
-          <Component {...pageProps} />
-        </main>
-      </div>
+      <SWRConfig
+        value={{
+          fetcher: (resource, init) =>
+            fetch(resource, init).then((res) => res.json()),
+        }}
+      >
+        <div className="app">
+          <ul>
+            {routes.map((route) => (
+              <li key={route.name}>
+                <Link href={route.path}>
+                  <a>{route.name}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <main>
+            <Component {...pageProps} />
+          </main>
+        </div>
+      </SWRConfig>
     </>
   );
 }
